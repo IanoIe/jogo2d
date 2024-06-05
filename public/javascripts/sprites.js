@@ -2,8 +2,8 @@ const gravity = 0.2
 
 const floorHeight = 96
 
-const backgroundSpritePath = "../images/placeholder.png"
-const defaultObjectSpritePath = "../objects/square.svg"
+const backgroundSpritePath = "./images/placeholder.png"
+const defaultObjectSpritePath = "./objects/square.svg"
 
 class Sprite {
     constructor({ position, velocity, source, scale, offset, sprites }) {
@@ -213,22 +213,22 @@ const player = new Fighter({
     scale: 4,
     sprites: {
         idle: {
-            src: "../images/player/idle.png",
+            src: "./images/idle.png",
             totalSpriteFrames: 11,
             framesPerSpriteFrame: 18
         },
         running: {
-            src: "../images/player/running.png",
+            src: "./images/running.png",
             totalSpriteFrames: 10,
             framesPerSpriteFrame: 8
         },
         jumping: {
-            src: "../images/player/jumping.png",
+            src: "./images/jumping.png",
             totalSpriteFrames: 4,
             framesPerSpriteFrame: 8
         },
         attacking: {
-            src: "../images/player/attacking.png",
+            src: "./images/attacking.png",
             totalSpriteFrames: 7,
             framesPerSpriteFrame: 8
         }
