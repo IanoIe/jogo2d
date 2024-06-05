@@ -1,4 +1,3 @@
-
 const keys = {
     a: {
         pressed: false
@@ -14,6 +13,7 @@ const keys = {
         pressed: false,
         hold: false
     },
+
 }
 
 window.addEventListener("keydown", e => {
@@ -25,7 +25,7 @@ window.addEventListener("keydown", e => {
             keys.a.pressed = true
             player.lastKeyPressed = key
             break
-            case "ArrowRight":
+        case "ArrowRight":
         case "d":
             keys.d.pressed = true
             player.lastKeyPressed = key
@@ -55,7 +55,7 @@ window.addEventListener("keyup", e => {
             break
         case "ArrowUp":
         case "w":
-            keys.w.pressed = false,
+            keys.w.pressed = false
             keys.w.hold = false
             break
         case "z":
@@ -67,23 +67,40 @@ window.addEventListener("keyup", e => {
 })
 
 function handleControls() {
+    player.setSprite("idle")
+
+    if (!player.onGround) player.setSprite("jumping")
+    if (player.isAttacking) player.setSprite("attacking")
+
     movement()
     attacks()
 
     function movement() {
         player.velocity.x = 0
+        if (player.isAttacking) return
 
         if (keys.a.pressed && ["a", "ArrowLeft"].includes(player.lastKeyPressed)) {
-            player.velocity.x = -1.5 * 3.4
+            player.velocity.x = -1.2 * 3.4
+            player.facing = "left"
+
+            if (!player.onGround) return
+
+            player.setSprite("running")
         }
 
         if (keys.d.pressed && ["d", "ArrowRight"].includes(player.lastKeyPressed)) {
-            player.velocity.x = 1.5 * 3.4
+            player.velocity.x = 1.2 * 3.4
+            player.facing = "right"
+
+            if (!player.onGround) return
+
+            player.setSprite("running")
         }
 
         if (keys.w.pressed && !keys.w.hold) {
             player.jump()
             keys.w.hold = true
+            player.setSprite("jumping")
         }
     }
 
@@ -91,6 +108,6 @@ function handleControls() {
         if (keys.space.pressed && !keys.space.hold) {
             player.attack()
             keys.space.hold = true
-        }
+        } 
     }
 }
